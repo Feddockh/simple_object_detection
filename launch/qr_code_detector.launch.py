@@ -41,8 +41,30 @@ def generate_launch_description():
         }.items(),
     )
 
+    my_robot_package_path = FindPackageShare('simple_object_detection')
+
+    # RViz Node
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', PathJoinSubstitution([
+            my_robot_package_path, 'config', 'qr_code_display.rviz'
+        ])]
+    )
+
+    # Bring up the node to detect the qr code
+    qr_code_detector_node = Node(
+        name="qr_code_detector",
+        package="simple_object_detection",
+        executable="qr_code_detector"
+    )
+
     launched_nodes = LaunchDescription([
-        realsense_node
+        realsense_node,
+        rviz_node,
+        qr_code_detector_node
     ])
 
     return launched_nodes
