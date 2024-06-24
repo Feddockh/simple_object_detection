@@ -41,7 +41,7 @@ def generate_launch_description():
         }.items(),
     )
 
-    my_robot_package_path = FindPackageShare('simple_object_detection')
+    current_package = FindPackageShare('simple_object_detection')
 
     # RViz Node
     rviz_node = Node(
@@ -50,7 +50,7 @@ def generate_launch_description():
         name='rviz2',
         output='screen',
         arguments=['-d', PathJoinSubstitution([
-            my_robot_package_path, 'config', 'qr_code_display.rviz'
+            current_package, 'config', 'qr_code_display.rviz'
         ])]
     )
 
